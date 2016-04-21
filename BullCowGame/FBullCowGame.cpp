@@ -2,6 +2,8 @@
 #include "FBullCowGame.h"
 #include <map>
 
+// TODO make feature that checks that random word wasn't shown before (create a separate map of used words and compare )
+
 // to make syntax Unreal friendly
 #define TMap std::map
 using int32 = int; 
@@ -18,6 +20,12 @@ int32 FBullCowGame::GetMaxTries() const {
 	TMap<int32, int32> WordLengthToMaxTries{ {3,4}, {4,7}, {5,10}, {6,16}, {7,20} };
 	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
+
+// TODO initialise 5 maps of words with different word length
+
+// TODO create function that will choose which map we choose from depending on the word length choosen by player
+
+// TODO create function that randomly selects the word from a map and assigns it to MyHiddenWord 
 
 
 void FBullCowGame::Reset() {

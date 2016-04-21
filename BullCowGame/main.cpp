@@ -13,6 +13,7 @@ using int32 = int;
 
 // function prototypes as outside a class
 void PrintIntro();
+FText ChooseWordLength();
 void PlayGame();
 FText GetValidGuess();
 void PrintGameSummary();
@@ -26,7 +27,9 @@ int main() {
 	bool bPlayAgain = false;
 	do {
 		
-		PrintIntro();
+		PrintIntro(); // TODO move intro outside the game loop
+		// TODO put function that asks player about the word length
+		ChooseWordLength();
 		PlayGame();
 		bPlayAgain = AskToPlayAgain();
 		std::cout << "\n";
@@ -39,12 +42,26 @@ int main() {
 // introduce the game
 void PrintIntro() {
 
-	std::cout << "Welcome to Bulls and Cows, a fun word game\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
+	std::cout << "Welcome to Bulls and Cows, a fun word game\n"; // TODO expand intro texts describing rules more thoroughly
+	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength(); // TODO needs to be changed, as the player now guesses the word of defined length
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << "\n";
 	return;
 }
+
+
+// let user choose the game difficulty by choosing word length
+FText ChooseWordLength() {
+
+	FText UserLength;
+	std::cout << "Choose the word length in the range of 3-7 symbols:\n";
+	getline(std::cin, UserLength);
+
+	std::cout << "Your choosen length is " << UserLength; // TODO remove this line
+
+	return UserLength;
+}
+
 
 // plays a single game to completion
 void PlayGame() {
