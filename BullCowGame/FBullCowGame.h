@@ -38,6 +38,8 @@ public:
 	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
+	void ChooseHiddenWord(FString); // TODO check the type when the function is fully written
+
 private:
 	//see constructor for initialisation
 	int32 MyCurrentTry;

@@ -1,6 +1,7 @@
 #pragma once
 #include "FBullCowGame.h"
 #include <map>
+#include <vector>
 
 // TODO make feature that checks that random word wasn't shown before (create a separate map of used words and compare )
 
@@ -21,12 +22,29 @@ int32 FBullCowGame::GetMaxTries() const {
 	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
 
-// TODO initialise 5 maps of words with different word length
+// TODO create function that randomly selects the word from a map and assigns it to MyHiddenWord 
 
 // TODO create function that will choose which map we choose from depending on the word length choosen by player
 
-// TODO create function that randomly selects the word from a map and assigns it to MyHiddenWord 
+// TODO call this function in the game somewhere
+void FBullCowGame::ChooseHiddenWord(FString UserLength) {
 
+	
+	// Making 5 vectors of words
+	std::vector<FString> ThreeLetter = { "ant","bat","cat","cow","dog","elk","fox","owl","pig","rat" };
+	std::vector<FString> FourLetter = { "lion", "duck", "wolf", "goat", "bear", "frog", "seal", "crab", "mole", "swan" };
+	std::vector<FString> FiveLetter = { "sloth", "tiger", "shark", "squid", "snail", "snake", "whale", "horse", "zebra", "human" };
+	std::vector<FString> SixLetter = { "monkey", "donkey", "spider", "lizard", "oyster", "wombat", "dragon", "walrus", "shrimp", "falcon" };
+	std::vector<FString> SevenLetter = { "echidna", "warthog", "pelican", "panther", "ostrich", "monster", "lobster", "hamster", "dolphin", "catfish" };
+	
+	TMap<FString, std::vector<FString>> WordLengthToVectorName{ { "3", ThreeLetter }, {"4", FourLetter}, {"5", FiveLetter}, {"6", SixLetter}, {"7", SevenLetter} };
+	
+	WordLengthToVectorName[UserLength]; // gets the vector of words depending on the choosen word length
+	// TODO test if the proper map outputs
+
+
+	return;
+}
 
 void FBullCowGame::Reset() {
 
@@ -36,6 +54,8 @@ void FBullCowGame::Reset() {
 	bGameIsWon = false;
 	return;
 }
+
+
 
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
