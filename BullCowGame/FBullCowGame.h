@@ -34,11 +34,9 @@ public:
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;
-
 	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
-
-	void ChooseHiddenWord(FString); // TODO check the type when the function is fully written
+	FString ChooseHiddenWord(FString); 
 
 private:
 	//see constructor for initialisation

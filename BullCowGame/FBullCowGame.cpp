@@ -3,7 +3,8 @@
 #include <map>
 #include <vector>
 
-// TODO make feature that checks that random word wasn't shown before (create a separate map of used words and compare )
+// TODO make feature that checks that random word wasn't shown n the current session
+// (create a separate map of used words and compare )
 
 // to make syntax Unreal friendly
 #define TMap std::map
@@ -12,23 +13,18 @@ using int32 = int;
 FBullCowGame::FBullCowGame() { Reset(); } // default constructor
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
-int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); } 
 bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
 
 int32 FBullCowGame::GetMaxTries() const { 
 	
-	TMap<int32, int32> WordLengthToMaxTries{ {3,4}, {4,7}, {5,10}, {6,16}, {7,20} };
+	TMap<int32, int32> WordLengthToMaxTries{ {3,7}, {4,10}, {5,16}, {6,20}, {7,25} };
 	return WordLengthToMaxTries[MyHiddenWord.length()]; 
 }
 
-// TODO create function that randomly selects the word from a map and assigns it to MyHiddenWord 
 
-// TODO create function that will choose which map we choose from depending on the word length choosen by player
-
-// TODO call this function in the game somewhere
-void FBullCowGame::ChooseHiddenWord(FString UserLength) {
-
+FString FBullCowGame::ChooseHiddenWord(FString UserLength) {
 	
 	// Making 5 vectors of words
 	std::vector<FString> ThreeLetter = { "ant","bat","cat","cow","dog","elk","fox","owl","pig","rat" };
@@ -39,23 +35,21 @@ void FBullCowGame::ChooseHiddenWord(FString UserLength) {
 	
 	TMap<FString, std::vector<FString>> WordLengthToVectorName{ { "3", ThreeLetter }, {"4", FourLetter}, {"5", FiveLetter}, {"6", SixLetter}, {"7", SevenLetter} };
 	
-	WordLengthToVectorName[UserLength]; // gets the vector of words depending on the choosen word length
-	// TODO test if the proper map outputs
-
-
-	return;
+	std::vector<FString> MyVector = WordLengthToVectorName[UserLength]; // gets the vector of words depending on the choosen word length
+	
+	int i = rand() % MyVector.size() - 1;
+	MyHiddenWord = MyVector[i];
+	
+	return MyHiddenWord;
 }
 
 void FBullCowGame::Reset() {
 
-	const FString HIDDEN_WORD = "war"; // this MUST be an isogram
-	MyHiddenWord = HIDDEN_WORD;
+	MyHiddenWord = "";
 	MyCurrentTry = 1;
 	bGameIsWon = false;
 	return;
 }
-
-
 
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {

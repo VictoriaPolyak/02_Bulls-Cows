@@ -25,10 +25,10 @@ FBullCowGame BCGame; //instantiate a new game, which we reuse across play
 int main() {
 
 	bool bPlayAgain = false;
+	
+	PrintIntro();
 	do {
-		
-		PrintIntro(); // TODO move intro outside the game loop
-		// TODO put function that asks player about the word length
+		BCGame.Reset();
 		ChooseWordLength();
 		PlayGame();
 		bPlayAgain = AskToPlayAgain();
@@ -53,12 +53,13 @@ void PrintIntro() {
 // let user choose the game difficulty by choosing word length
 FText ChooseWordLength() {
 
-	FText UserLength;
-	std::cout << "Choose the word length in the range of 3-7 symbols:\n";
+	FText UserLength = "";
+	std::cout << "Choose the word length in the range of 3-7 symbols: ";
 	getline(std::cin, UserLength);
 
-	std::cout << "Your choosen length is " << UserLength; // TODO remove this line
+	std::cout << "\n";
 
+	BCGame.ChooseHiddenWord(UserLength);
 	return UserLength;
 }
 
@@ -66,7 +67,6 @@ FText ChooseWordLength() {
 // plays a single game to completion
 void PlayGame() {
 
-	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 
 	// loop asking for guesses while the game is NOT won
